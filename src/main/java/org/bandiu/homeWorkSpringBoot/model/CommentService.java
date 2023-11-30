@@ -25,7 +25,7 @@ public class CommentService {
 
     public Page<Comment> getPaginatedComments(int page, int pageSize) {
         Pageable pageable = PageRequest.of(page,pageSize);
-        Page<Comment> pages = CommentRepository.findAll(pageable);
+        Page<Comment> pages = commentRepository.findAll(pageable);
         return pages;
     }
 }
