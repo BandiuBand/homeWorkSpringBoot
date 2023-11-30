@@ -1,6 +1,9 @@
 package org.bandiu.homeWorkSpringBoot.model;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -20,4 +23,9 @@ public class CommentService {
         return new ArrayList<Comment>();//toDo
     }
 
+    public Page<Comment> getPaginatedComments(int page, int pageSize) {
+        Pageable pageable = PageRequest.of(page,pageSize);
+        Page<Comment> pages = CommentRepository.findAll(pageable);
+        return pages;
+    }
 }
