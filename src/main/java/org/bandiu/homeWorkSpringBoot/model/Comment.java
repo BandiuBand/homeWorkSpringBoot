@@ -1,11 +1,13 @@
 package org.bandiu.homeWorkSpringBoot.model;
 
 
+import java.util.Date;
 
 public class Comment {
     private String name;
     private String comment;
     private int rating;
+    private Date data;
 
     public void setName(String name) {
         this.name = name;
@@ -29,5 +31,13 @@ public class Comment {
 
     public int getRating() {
         return rating;
+    }
+
+    public Date getData() {
+        return data;
+    }
+
+    public void setData(Date data) {
+        this.data = data;
     }
 }
