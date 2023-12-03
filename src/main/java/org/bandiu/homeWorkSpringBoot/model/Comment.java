@@ -1,13 +1,14 @@
 package org.bandiu.homeWorkSpringBoot.model;
 
 
-import java.util.Date;
+import java.time.LocalDateTime;
+
 
 public class Comment {
     private String name;
     private String comment;
     private int rating;
-    private Date data;
+    private LocalDateTime createdDate;
 
     public void setName(String name) {
         this.name = name;
@@ -33,11 +34,11 @@ public class Comment {
         return rating;
     }
 
-    public Date getData() {
-        return data;
+    public LocalDateTime getCreatedDate() {
+        return createdDate;
     }
 
-    public void setData(Date data) {
-        this.data = data;
+    public void setCreatedDate(LocalDateTime createdDate) {
+        this.createdDate = createdDate;
     }
 }
