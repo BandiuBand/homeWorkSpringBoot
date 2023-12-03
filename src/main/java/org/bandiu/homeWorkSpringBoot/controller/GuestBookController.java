@@ -10,14 +10,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.ArrayList;
-import java.util.List;
 import org.springframework.data.domain.Page;
 
 
 @Controller
 @RequestMapping("/guestbook")
-public class GuestBoockController {
+public class GuestBookController {
     private final int pageSize = 5;
 
     @Autowired

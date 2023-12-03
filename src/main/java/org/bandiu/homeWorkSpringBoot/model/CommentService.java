@@ -16,12 +16,9 @@ public class CommentService {
     private CommentRepository commentRepository;
 
     public void saveComment(Comment comment){
-        //toDo
+        commentRepository.save(comment);
     }
 
-    public List<Comment> getAllComments(){
-        return new ArrayList<Comment>();//toDo
-    }
 
     public Page<Comment> getPaginatedComments(int page, int pageSize) {
         Pageable pageable = PageRequest.of(page,pageSize);
