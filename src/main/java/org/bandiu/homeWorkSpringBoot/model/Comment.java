@@ -11,7 +11,7 @@ public class Comment {
     private String name;
     private String content;
     private int rating;
-    private String createdDate;
+    private LocalDateTime createdDate;
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Long id;
@@ -40,11 +40,11 @@ public class Comment {
         return rating;
     }
 
-    public String getCreatedDate() {
+    public LocalDateTime getCreatedDate() {
         return createdDate;
     }
 
-    public void setCreatedDate(String createdDate) {
+    public void setCreatedDate(LocalDateTime createdDate) {
         this.createdDate = createdDate;
     }
 

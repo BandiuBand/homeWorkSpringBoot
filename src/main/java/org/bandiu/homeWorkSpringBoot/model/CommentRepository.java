@@ -7,5 +7,5 @@ import org.springframework.data.domain.Pageable;
 public interface CommentRepository extends JpaRepository<Comment,Long> {
     Page<Comment> findAll(Pageable pageable);
 
-    //toDo
+
 }

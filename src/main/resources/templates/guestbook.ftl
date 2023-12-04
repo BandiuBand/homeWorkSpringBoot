@@ -43,7 +43,7 @@
                 <td>${comment.name}</td>
                 <td>${comment.content}</td>
                 <td>${comment.rating}</td>
-                <td>${comment.createdDate?string("dd-MM-yyyy HH:mm")!"Дата не вказана"}</td>
+                <td>${comment.createdDate!"Дата не вказана"}</td>
             </tr>
         </#list>
     </table>
