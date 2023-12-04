@@ -1,19 +1,18 @@
 package org.bandiu.homeWorkSpringBoot.model;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "comment")
 public class Comment {
     private String name;
     private String content;
     private int rating;
-    private LocalDateTime createdDate;
-    @GeneratedValue
+    private String createdDate;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Long id;
 
@@ -41,11 +40,11 @@ public class Comment {
         return rating;
     }
 
-    public LocalDateTime getCreatedDate() {
+    public String getCreatedDate() {
         return createdDate;
     }
 
-    public void setCreatedDate(LocalDateTime createdDate) {
+    public void setCreatedDate(String createdDate) {
         this.createdDate = createdDate;
     }
 

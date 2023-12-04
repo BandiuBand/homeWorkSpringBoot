@@ -1,0 +1,14 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/BandiuDB
+    username: Bandiu
+    password: 9333
+  jpa:
+      properties:
+        hibernate:
+          ddl-auto: update
+          show-sql: true
+          dialect: org.hibernate.dialect.PostgreSQLDialect
+  freemarker:
+    template-loader-path: classpath:/templates/
+    suffix: .ftl

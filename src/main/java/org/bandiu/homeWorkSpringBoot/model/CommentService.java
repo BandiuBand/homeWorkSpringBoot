@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +17,7 @@ public class CommentService {
     private CommentRepository commentRepository;
 
     public void saveComment(Comment comment){
+        comment.setCreatedDate(LocalDateTime.now().format("dd-MM-yyyy HH:mm:ss").toString());
         commentRepository.save(comment);
     }
 

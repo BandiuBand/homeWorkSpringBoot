@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import org.springframework.data.domain.Page;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
 
 @Controller
 @RequestMapping("/guestbook")
@@ -24,9 +27,10 @@ public class GuestBookController {
     @GetMapping
     public String showGuestBook(@RequestParam(name = "page",defaultValue = "0") int page, Model model){
         Page<Comment> commentPage = commentService.getPaginatedComments(page,pageSize);
+        List<Comment> comments = commentPage.getContent();
         model.addAttribute("currentPage",page);
         model.addAttribute("totalPages",commentPage.getTotalElements());
-        model.addAttribute("comments",commentPage);
+        model.addAttribute("comments",comments);
         return "guestbook";//toDo need make template FreeMarker
     }
 
