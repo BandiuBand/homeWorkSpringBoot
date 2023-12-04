@@ -13,6 +13,6 @@ spring:
     template-loader-path: classpath:/templates/
     suffix: .ftl
     settings:
-      datetime_format: "dd-MM-yyyy HH:mm"
-      date_format: "dd-MM-yyyy"
+      datetime_format: "dd.MM.yyyy HH:mm"
+      date_format: "dd.MM.yyyy"
       time_format: "HH:mm"

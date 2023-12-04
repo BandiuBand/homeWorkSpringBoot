@@ -43,7 +43,7 @@
                 <td>${comment.name}</td>
                 <td>${comment.content}</td>
                 <td>${comment.rating}</td>
-                <td>${comment.createdDate!"Дата не вказана"}</td>
+                <td>${comment.createdDate}</td>
             </tr>
         </#list>
     </table>
@@ -51,7 +51,7 @@
     <#if (currentPage > 0)>
         <a href="/guestbook?page=${currentPage - 1}">Попередня</a>
     </#if>
-    <#if (currentPage < (totalPages - 1))>
+    <#if ((currentPage+1) < (totalPages))>
         <a href="/guestbook?page=${currentPage + 1}">Наступна</a>
     </#if>
 

@@ -4,6 +4,7 @@ package org.bandiu.homeWorkSpringBoot.model;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 @Table(name = "comment")
@@ -11,7 +12,8 @@ public class Comment {
     private String name;
     private String content;
     private int rating;
-    private LocalDateTime createdDate;
+    private Date createdDate;
+
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Long id;
@@ -40,11 +42,11 @@ public class Comment {
         return rating;
     }
 
-    public LocalDateTime getCreatedDate() {
+    public Date getCreatedDate() {
         return createdDate;
     }
 
-    public void setCreatedDate(LocalDateTime createdDate) {
+    public void setCreatedDate(Date createdDate) {
         this.createdDate = createdDate;
     }
 

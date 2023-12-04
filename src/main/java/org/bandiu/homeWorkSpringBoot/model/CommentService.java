@@ -6,8 +6,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.PageRequest;
 
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
@@ -22,13 +24,14 @@ public class CommentService {
     private CommentRepository commentRepository;
 
     public void saveComment(Comment comment){
-        comment.setCreatedDate(LocalDateTime.now());
+
+        comment.setCreatedDate(Date.valueOf(String.valueOf(LocalDateTime.now())));
         commentRepository.save(comment);
     }
 
 
     public Page<Comment> getPaginatedComments(int page, int pageSize) {
-        Pageable pageable = PageRequest.of(page,pageSize);
+        Pageable pageable = PageRequest.of(page,pageSize, Sort.by("createdDate").descending());
         Page<Comment> pages = commentRepository.findAll(pageable);
         return pages;
     }
