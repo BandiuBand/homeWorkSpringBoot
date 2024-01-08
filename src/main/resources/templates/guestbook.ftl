@@ -1,7 +1,11 @@
 <!DOCTYPE html>
 <html lang="uk">
     <head>
+        <meta charset="UTF-8">
         <title>Гостьова книга</title>
+        <link rel="stylesheet" href="src/bootstrap-5.3.2-dist/bootstrap-5.3.2-dist/css/bootstrap.min.css">
+
+
     </head>
 
     <body>
@@ -55,5 +59,7 @@
         <a href="/guestbook?page=${currentPage + 1}">Наступна</a>
     </#if>
 
+    <script src="src/main/resources/js/jquery-3.7.1.min.js"></script>
+    <script src="src/bootstrap-5.3.2-dist/bootstrap-5.3.2-dist/js/bootstrap.min.js"></script>
     </body>
 </html>
