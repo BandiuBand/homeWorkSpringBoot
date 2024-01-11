@@ -10,19 +10,20 @@
 
     <body>
     <h1>Залишити коментар</h1>
-        <form action="/guestbook" method="post">
+        <form id="guestbookForm" action="/guestbook" method="post">
 
-            <label>
-                <input type="text" name="name" placeholder="Ім'я">
-                <br>
+            <label >Ім'я
+                <input id="username" type="text" name="name" placeholder="Ім'я">
             </label>
+            <br>
 
-            <label>
-                <textarea name="content" placeholder="Коментар"></textarea>
-                <br>
+
+            <label>Коментар
+                <textarea id="comment" name="content" placeholder="Коментар"></textarea>
             </label>
-            <label>
-                <select name="rating">
+            <br>
+            <label>Оцінка
+                <select id="rating" name="rating">
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
@@ -31,11 +32,11 @@
                 </select>
                 <br>
             </label>
-            <input type="submit" value="Додати коментар">
+            <input id="submitButton" type="submit" value="Додати коментар">
         </form>
     <h1>Коментарі</h1>
 
-    <table>
+    <table id="tableOfComment">
         <tr>
             <th>Автор</th>
             <th>Коментар</th>
@@ -61,5 +62,45 @@
 
     <script src="src/main/resources/js/jquery-3.7.1.min.js"></script>
     <script src="src/bootstrap-5.3.2-dist/bootstrap-5.3.2-dist/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $(("#guestbookForm").submit(function (event){
+                event.preventDefault();
+                var formData = {
+                  name: $("#username").val(),
+                  content: $("#comment").val(),
+                  rating: $("#rating").val()
+                };
+
+                $.ajax({
+                    type: "POST",
+                    url: "guestbook",
+                    contentType: "application/json",
+                    data: JSON.stringify(formData),
+                    success: function (response){
+                        renewCommentTable(response);
+                    },
+                    error: function (xhr, status, error){
+                        console.error("Error: " + error);
+                    }
+                });
+
+            }));
+        });
+
+        function renewCommentTable(comments){
+            $("#tableOfComment").empty();
+
+            comments.forEach(function (comment){
+                var row =   "<tr>" +
+                            "<td>" + comment.name + "</td>" +
+                            "<td>" + comment.content + "</td>" +
+                            "<td>" + comment.rating + "</td>" +
+                            "<td>" + comment.createdDate + "</td>" +
+                            "</tr>";
+                $("#tableOfComment").append(row);
+            });
+        }
+    </script>
     </body>
 </html>
