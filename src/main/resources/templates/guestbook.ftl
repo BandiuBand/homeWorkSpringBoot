@@ -63,6 +63,7 @@
     <script src="src/main/resources/js/jquery-3.7.1.min.js"></script>
     <script src="src/bootstrap-5.3.2-dist/bootstrap-5.3.2-dist/js/bootstrap.min.js"></script>
     <script>
+        var page =0;
         $(document).ready(function () {
             $(("#guestbookForm").submit(function (event){
                 event.preventDefault();
@@ -79,6 +80,7 @@
                     data: JSON.stringify(formData),
                     success: function (response){
                         renewCommentTable(response);
+                        page = 0;
                     },
                     error: function (xhr, status, error){
                         console.error("Error: " + error);
