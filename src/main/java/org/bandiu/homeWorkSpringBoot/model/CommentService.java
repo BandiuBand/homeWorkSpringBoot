@@ -24,8 +24,8 @@ public class CommentService {
     private CommentRepository commentRepository;
 
     public void saveComment(Comment comment){
-
-        comment.setCreatedDate(Date.valueOf(String.valueOf(LocalDateTime.now())));
+        LocalDateTime now = LocalDateTime.now();
+        comment.setCreatedDate(java.sql.Timestamp.valueOf(now));
         commentRepository.save(comment);
     }
 
