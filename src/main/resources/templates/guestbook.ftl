@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <title>Гостьова книга</title>
-        <link rel="stylesheet" href="src/bootstrap-5.3.2-dist/bootstrap-5.3.2-dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/bootstrap-5.3.2-dist/bootstrap-5.3.2-dist/css/bootstrap.min.css">
 
 
     </head>
@@ -53,19 +53,34 @@
         </#list>
     </table>
 
-    <#if (currentPage > 0)>
-        <a href="/guestbook?page=${currentPage - 1}">Попередня</a>
-    </#if>
-    <#if ((currentPage+1) < (totalPages))>
-        <a href="/guestbook?page=${currentPage + 1}">Наступна</a>
-    </#if>
-
-    <script src="src/main/resources/js/jquery-3.7.1.min.js"></script>
-    <script src="src/bootstrap-5.3.2-dist/bootstrap-5.3.2-dist/js/bootstrap.min.js"></script>
+   <button id="loadMore">Показати більше</button>
+    <script>function mark(ratingValue){
+        switch (ratingValue) {
+            case 1:
+                return "Жахливо";
+            case 2:
+                return "Погано";
+            case 3:
+                return "Середнє";
+            case 4:
+                return "Непогано";
+            case 5:
+                return "Прекрасно";
+        }
+    }</script>
+    <script src="/js/jquery-3.7.1.min.js"></script>
+    <script src="/bootstrap-5.3.2-dist/bootstrap-5.3.2-dist/js/bootstrap.min.js"></script>
     <script>
-        var page =0;
+        page =0;
         $(document).ready(function () {
-            $(("#guestbookForm").submit(function (event){
+            $("#tableOfComment tr").each(function (index){
+                if (index!== 0){
+                    var ratingCell = $(this).find("td").eq(2);
+                    var ratingValue = parseInt(ratingCell.text());
+                    ratingCell.text(mark(ratingValue));
+                }
+            })
+            $("#guestbookForm").submit(function (event){
                 event.preventDefault();
                 var formData = {
                   name: $("#username").val(),
@@ -87,22 +102,51 @@
                     }
                 });
 
-            }));
+            });
+        });
+        $("#loadMore").click(function (){
+            loadComments(page+1);
         });
 
+        function loadComments(pageToLoad){
+            $.ajax({
+                type: "GET",
+                url: "/guestbook/comments?page="+pageToLoad,
+                success: function(response) {
+                    renewCommentTable(response)
+                    page++;
+                    if ((page+1) >= ${totalPages})
+                        $("#loadMore").hide();
+                },
+                error: function (xhr, status, error) {
+                        console.error("Error:" + error);
+                }
+            });
+        }
+        function formatDateString(isoString){
+            var date = new Date(isoString);
+            return date.toLocaleString();
+        }
         function renewCommentTable(comments){
+            var headOfTable = "<tr>" +
+                "<th>Автор</th>" +
+                "<th>Коментар</th>" +
+                "<th>Оцінка</th>" +
+                "<th>Дата</th>" +
+                "</tr>";
             $("#tableOfComment").empty();
-
+            $("#tableOfComment").append(headOfTable);
             comments.forEach(function (comment){
                 var row =   "<tr>" +
                             "<td>" + comment.name + "</td>" +
                             "<td>" + comment.content + "</td>" +
-                            "<td>" + comment.rating + "</td>" +
-                            "<td>" + comment.createdDate + "</td>" +
+                            "<td>" + mark(comment.rating) + "</td>" +
+                            "<td>" +  formatDateString(comment.createdDate) + "</td>" +
                             "</tr>";
                 $("#tableOfComment").append(row);
             });
         }
+
     </script>
     </body>
 </html>

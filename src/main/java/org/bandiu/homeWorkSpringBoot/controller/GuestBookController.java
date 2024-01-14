@@ -3,12 +3,10 @@ package org.bandiu.homeWorkSpringBoot.controller;
 import org.bandiu.homeWorkSpringBoot.model.Comment;
 import org.bandiu.homeWorkSpringBoot.model.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import org.springframework.data.domain.Page;
 
@@ -33,10 +31,16 @@ public class GuestBookController {
         model.addAttribute("comments",comments);
         return "guestbook";//toDo need make template FreeMarker
     }
+    @GetMapping("/comments")
+    public ResponseEntity<List<Comment>> getComments(@RequestParam(name = "page",defaultValue = "0") int page){
+        List<Comment> comments = commentService.getPaginatedComments(page,pageSize).getContent();
+        return ResponseEntity.ok(comments);
+    }
 
     @PostMapping
-    public String addComment(Comment comment){
+    public ResponseEntity<List<Comment>> addComment(@RequestBody Comment comment){
         commentService.saveComment(comment);
-        return "redirect:/guestbook";
+        List<Comment> latestComments = commentService.getPaginatedComments(0,pageSize).getContent();
+        return ResponseEntity.ok(latestComments);
     }
 }
